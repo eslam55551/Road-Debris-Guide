@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Road & Debris Guide</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--ink:#16222d;--mut:#6a7b8a;--line:#e4eaf0;--acc:#2563eb;--ok:#15803d;--okb:#e3f6ea;--no:#b42318;--nob:#fdeceb;--noise:linear-gradient(transparent,transparent);--note:#fff7e6;--noteb:#f3dfb0;--notet:#7a5a14;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d141b;--card:#151f29;--ink:#e8eef4;--mut:#93a4b3;--line:#263441;--acc:#6ea0ff;--ok:#5fd08f;--okb:#12301f;--no:#ff8f84;--nob:#35171a;--note:#2a2312;--noteb:#4a3d1a;--notet:#e6c878}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.8}
+.page{max-width:980px;margin:auto;padding:22px 16px 50px}
+h1{font-size:27px;margin:0;direction:ltr;text-align:right}.lead{color:var(--mut);margin:2px 0 18px}
+bdi{unicode-bidi:isolate}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 8px 30px rgba(20,40,60,.05);margin-bottom:16px}
+.card h2{font-size:14px;margin:0 0 12px;color:var(--mut);font-weight:600}
+.road{border-radius:14px;overflow:hidden;direction:ltr;border:1px solid var(--line)}
+.band{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;padding:0 14px;margin:0;font:600 13px inherit;font-family:inherit;color:#1d2b36;cursor:pointer;position:relative;text-align:left;transition:filter .15s}
+.band:hover{filter:brightness(1.07)}
+.band i{font-style:normal;font-weight:500;font-size:11px;opacity:.85}.st span.l{line-height:1.35}.st i{display:block}
+.on{box-shadow:inset 0 0 0 3px #f59e0b;z-index:3}
+.nlz{height:52px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.7);background:repeating-linear-gradient(45deg,rgba(249,115,22,.42) 0 10px,rgba(251,191,36,.16) 10px 20px),var(--noise),linear-gradient(#6f9150,#5a7a40)}
+.edge{height:24px;background:repeating-linear-gradient(90deg,transparent 0 118px,rgba(0,0,0,.25) 118px 120px),linear-gradient(#d6dbdf,#a7aeb4 55%,#8e959c);border-bottom:3px solid #ef4444;color:#1d2b36}
+.acc{height:48px;color:#3a2c10;background:radial-gradient(ellipse at 20% 50%,rgba(110,80,40,.35),transparent 40%),radial-gradient(ellipse at 72% 40%,rgba(110,80,40,.3),transparent 45%),var(--noise),linear-gradient(#c4af86,#b09969)}
+.sl,.sh,.tr{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.75)}
+.sl{height:84px;background:var(--noise),linear-gradient(#858b91,#767c82)}
+.sh{height:46px;background:var(--noise),linear-gradient(#8f959b,#868c92)}
+.yl{height:4px;background:linear-gradient(#ecbd22,#cf9e0e)}
+.tr{height:140px;overflow:hidden;background:repeating-linear-gradient(180deg,transparent 0 9px,rgba(0,0,0,.2) 9px 14px,transparent 14px 32px,rgba(0,0,0,.2) 32px 37px,transparent 37px 46.66px),var(--noise),linear-gradient(#3d4249,#33383e)}
+.tr:before,.tr:after{content:"";position:absolute;left:0;right:0;height:3px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.88) 0 34px,transparent 34px 62px)}
+.tr:before{top:calc(33.33% - 1px)}.tr:after{top:calc(66.66% - 1px)}
+.deb{position:absolute;pointer-events:none}
+.car{width:76px;height:33px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+.pile{width:78px;height:55px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.4))}
+.lf{border-radius:70% 0;box-shadow:0 1px 1px rgba(0,0,0,.3)}.rk{border-radius:50%;background:#7d7f80}
+.sand{background:radial-gradient(ellipse,rgba(232,212,164,.95),rgba(232,212,164,0) 70%)}
+.bush{border-radius:50%;background:radial-gradient(circle at 35% 35%,#86b05f,#3d6a2b);box-shadow:0 2px 4px rgba(0,0,0,.4)}
+.hint{text-align:center;color:var(--mut);font-size:13px;margin-top:10px}
+.det{position:sticky;top:14px}
+.det h3{font-size:21px;margin:0 0 12px;direction:ltr;text-align:right}
+.blk{margin-bottom:14px}.blk b{display:block;font-size:12px;color:var(--mut);font-weight:600}
+.blk p{margin:0;font-size:15px}
+.rule{border-radius:14px;padding:4px 12px;background:var(--bg);direction:ltr}
+.rr{padding:10px 0}.rr+.rr{border-top:1px solid var(--line)}
+.rr .t{font-size:13px;color:var(--mut);margin-bottom:5px}
+.pill{display:inline-block;border-radius:20px;padding:3px 12px;font-weight:700;font-size:14px;margin:2px 4px 2px 0}
+.pill.l{background:var(--okb);color:var(--ok)}.pill.i{background:var(--nob);color:var(--no)}.pill.n{background:var(--line);color:var(--ink)}
+.note{background:var(--note);border:1px solid var(--noteb);color:var(--notet);border-radius:12px;padding:9px 12px;font-size:13px;margin-top:12px}
+.empty{color:var(--mut);text-align:center;padding:50px 10px;font-size:15px}
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tm{background:var(--bg);border-radius:14px;padding:12px 14px}
+.tm b{display:block;direction:ltr;text-align:right;font-size:15px}.tm span{font-size:14px;color:var(--mut)}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sc{border-radius:14px;padding:12px;background:var(--bg);text-align:center;direction:ltr}
+.sc b{display:block;font-size:13px}.sc span{display:block;font-size:20px;font-weight:800;color:var(--acc);margin-top:4px}.sc small{color:var(--mut);font-size:12px}
+.q{font-size:16px;font-weight:600;margin:0 0 12px;min-height:56px}
+.btns{display:flex;gap:10px}
+.btns button{flex:1;border:0;border-radius:12px;padding:12px;font:700 16px inherit;font-family:inherit;cursor:pointer;color:#fff}
+.bl{background:#16a34a}.bi{background:#dc2626}.btns button:disabled{opacity:.45}
+.fb{margin-top:12px;border-radius:12px;padding:10px 14px;font-size:14px}
+.fb.y{background:var(--okb);color:var(--ok)}.fb.n{background:var(--nob);color:var(--no)}
+.nx{margin-top:10px;border:0;background:var(--acc);color:#fff;border-radius:10px;padding:8px 16px;font:600 14px inherit;font-family:inherit;cursor:pointer;display:none}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.det{position:static}.sum{grid-template-columns:1fr 1fr}.terms{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>
+<symbol id="car" viewBox="0 0 100 44"><rect x="2" y="4" width="96" height="36" rx="15" fill="currentColor"/><rect x="2" y="4" width="96" height="36" rx="15" fill="url(#cg)"/><path d="M60 8 L74 11 Q78 22 74 33 L60 36 Z" fill="#141c23" opacity=".85"/><path d="M26 9 L19 12 Q16 22 19 32 L26 35 Z" fill="#141c23" opacity=".8"/><rect x="29" y="8" width="28" height="28" rx="7" fill="#fff" opacity=".14" stroke="#000" stroke-opacity=".2"/><rect x="58" y="0" width="9" height="5" rx="2" fill="currentColor"/><rect x="58" y="39" width="9" height="5" rx="2" fill="currentColor"/><rect x="94" y="8" width="5" height="8" rx="2" fill="#fff6cc"/><rect x="94" y="28" width="5" height="8" rx="2" fill="#fff6cc"/><rect x="1" y="8" width="4" height="8" rx="2" fill="#e02b2b"/><rect x="1" y="28" width="4" height="8" rx="2" fill="#e02b2b"/></symbol>
+<symbol id="pile" viewBox="0 0 70 52"><ellipse cx="34" cy="43" rx="30" ry="6" fill="#000" opacity=".25"/><polygon points="8,40 14,26 28,18 44,20 58,28 64,40 52,46 20,46" fill="#7a5233"/><polygon points="14,26 28,18 40,28 20,34" fill="#9b6c43"/><rect x="20" y="24" width="32" height="6" fill="#c9a56d" transform="rotate(-14 36 27)"/><rect x="14" y="34" width="28" height="5" fill="#a98558" transform="rotate(8 28 36)"/><ellipse cx="48" cy="34" rx="10" ry="7" fill="#9ca3a8"/><ellipse cx="45" cy="31" rx="5" ry="3" fill="#c3c9cd"/><path d="M4 22H54V50H4Z M16 12H66V40H16Z M4 22L16 12 M54 22L66 12 M54 50L66 40 M4 50L16 40" fill="none" stroke="#34d399" stroke-width="1.7" stroke-dasharray="4 3"/></symbol>
+</defs></svg>
+<div class="page">
+<h1>Road & Debris Guide</h1>
+<p class="lead">دوس على أي جزء في الطريق، وهتشوف الـ Rule بتاعه.</p>
+<div class="grid">
+<section class="card">
+<h2>الطريق من فوق (من برة لجوّه)</h2>
+<div class="road" id="road">
+<button class="band nlz" data-id="nlz">No Label Zone (NLZ)</button>
+<button class="band edge" data-id="edge">Road Edge <i>barrier / curb / berm</i></button>
+<button class="band acc st" data-id="acc" data-d="a"><span class="l">Accumulation Area<i>Shoulder end ↔ Road Edge</i></span></button>
+<button class="band sh st" data-id="shoulder"><span class="l">Shoulder<i>narrow, no vehicle</i></span></button>
+<div class="yl"></div>
+<button class="band tr" data-id="travel">Travel Lanes <svg class="deb car" style="left:58%;top:8px;color:#b3342b"><use href="#car"/></svg><svg class="deb car" style="left:30%;top:100px;color:#e9edf0"><use href="#car"/></svg></button>
+<div class="yl"></div>
+<button class="band sl st" data-id="shoulder-lane"><span class="l">Shoulder Lane<i>≈ 3m, fits a vehicle</i></span><svg class="deb car" style="left:40%;top:25px;color:#2f6fb5"><use href="#car"/></svg><svg class="deb pile" style="left:68%;top:14px"><use href="#pile"/></svg></button>
+<button class="band acc st" data-id="acc" data-d="a"><span class="l">Accumulation Area<i>Shoulder end ↔ Road Edge</i></span></button>
+<button class="band edge" data-id="edge">Road Edge <i>barrier / curb / berm</i></button>
+<button class="band nlz" data-id="nlz">No Label Zone (NLZ)</button>
+</div>
+</section>
+<aside class="card det" id="det"></aside>
+</div>
+
+<section class="card">
+<h2>مصطلحات الـ Debris</h2>
+<div class="terms">
+<div class="tm"><b>Particulate Debris</b><span>قطع صغيرة ومتناثرة زي الرمل والتراب والورق وأوراق الشجر، من غير حدود واضحة.</span></div>
+<div class="tm"><b>Other Debris</b><span>أي Debris تاني، زي جسم أو كومة ليها شكل وحدود واضحة.</span></div>
+<div class="tm"><b>Pile</b><span>كومة: Debris متجمع في مكان واحد.</span></div>
+<div class="tm"><b>Chain</b><span>سلسلة: Debris ممتد في خط طويل.</span></div>
+</div>
+</section>
+
+<section class="card">
+<h2>Cheat Sheet — أقل حد عشان تعمل Label</h2>
+<div class="sum">
+<div class="sc"><b>Travel Lanes</b><span>5 · 10cm</span><small>points · size</small></div>
+<div class="sc"><b>Shoulder Lane / Shoulder</b><span>10 · 20cm</span><small>ignore Particulate</small></div>
+<div class="sc"><b>Accumulation / Road Edge</b><span>20 · 30cm</span><small>ignore Particulate</small></div>
+<div class="sc"><b>NLZ</b><span>—</span><small>Don't Label</small></div>
+</div>
+</section>
+
+<section class="card">
+<h2>اختبر نفسك: Label ولا Ignore؟ <span id="sc" style="float:left"></span></h2>
+<p class="q" id="q"></p>
+<div class="btns"><button class="bl" id="bl">Label</button><button class="bi" id="bi">Ignore</button></div>
+<div class="fb" id="fb"></div><button class="nx" id="nx">التالي ←</button>
+</section>
+</div>
+<script>
+
+(function(){
+ const n="<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(#n)' opacity='.45'/></svg>";
+ document.documentElement.style.setProperty("--noise",'url("data:image/svg+xml,'+encodeURIComponent(n)+'")');
+ let r=11;const R=()=>(r=(r*9301+49297)%233280)/233280;
+ const add=(p,css,cls)=>{const e=document.createElement("span");e.className="deb "+cls;e.style.cssText=css;p.appendChild(e)};
+ document.querySelectorAll('[data-d="a"]').forEach(b=>{
+  for(let i=0;i<5;i++)add(b,`left:${42+R()*50}%;top:${12+R()*24}px;width:${22+R()*14}px;height:${9+R()*5}px`,"sand");
+  const lc=["#6f8f3a","#8a6a2a","#a0522d","#b58a3a","#5e7a30"];
+  for(let i=0;i<16;i++)add(b,`left:${40+R()*54}%;top:${6+R()*34}px;width:${7+R()*6}px;height:${4+R()*3}px;background:${lc[i%5]};transform:rotate(${R()*180}deg)`,"lf");
+  for(let i=0;i<7;i++)add(b,`left:${40+R()*54}%;top:${8+R()*32}px;width:${3+R()*3}px;height:${3+R()*3}px`,"rk")});
+ document.querySelectorAll(".nlz").forEach(b=>{for(let i=0;i<7;i++){const d=16+R()*14;add(b,`left:${34+i*9+R()*5}%;top:${6+R()*18}px;width:${d}px;height:${d}px`,"bush")}});
+})();
+const $=i=>document.getElementById(i);
+const en=s=>s.replace(/[A-Za-z][A-Za-z0-9&\/\-]*(?: [A-Za-z0-9&\/\-]+)*/g,m=>`<bdi dir="ltr">${m}</bdi>`);
+const PN="Particulate = قطع صغيرة متناثرة (رمل، تراب، ورق) من غير حدود واضحة.";
+const P=["Particulate Debris","Ignore"],SR=[[...P],["Other Debris","Label","≥ 10 points","≥ 20cm"]];
+const Z={
+travel:{n:"Travel Lanes",what:"الطريق الأساسي اللي العربيات بتمشي فيه.",cue:"لو عربية هتسوق هنا عادي، يبقى ده Travel Lane.",rows:[["Any Debris","Label","≥ 5 points","≥ 10cm"]]},
+"shoulder-lane":{n:"Shoulder Lane",what:"أسفلت مرصوف جنب آخر خط حارة، مش للسواقة العادية. عريض (حوالي 3m) وعربية تقف فيه، للوقوف أو الطوارئ أو الشرطة.",cue:"مرصوف ومسطح، جنب آخر خط حارة، وقريب من الـ Road Edge.",rows:SR,note:1,same:"نفس قاعدة الـ Shoulder."},
+shoulder:{n:"Shoulder",what:"جزء جانبي من الطريق، مساحته ضيقة ومينفعش عربية تقف فيه.",cue:"مرصوف ومسطح، جنب آخر خط حارة، وقريب من الـ Road Edge.",rows:SR,note:1,same:"نفس قاعدة الـ Shoulder Lane."},
+acc:{n:"Accumulation Area",what:"جزء بين نهاية الـ Shoulder والـ Road Edge. ممكن يكون جزء من الأسفلت، أو يكون بعد نهاية أسفلت الـ Shoulder. بيتجمع فيه الـ Particulate piles / chains، وهي قطع صغيرة من الـ Debris ممتدة على خط واحد.",cue:"دور على شريط تراب أو رمل ملاصق للعائق، قبل الأسفلت.",rows:[["Particulate piles / chains","Ignore (always)"],["Other Debris","Label","≥ 20 points","≥ 30cm"]],note:1},
+edge:{n:"Road Edge",what:"العائق المادي اللي بيمثل حدود الطريق، زي barrier أو curb أو ditch أو berm.",cue:"لو العربية عدّته هتخرج من الطريق.",rows:[["Particulate Debris","Ignore"],["Other Debris","Label","≥ 20 points","≥ 30cm"]],note:1},
+nlz:{n:"No Label Zone (NLZ)",what:"كل حاجة بعد الـ Road Edge من برة.",cue:"بعد الخط الأحمر.",rows:[["Any Debris","Don't Label"]]}
+};
+function show(id){const z=Z[id];
+document.querySelectorAll("#road [data-id]").forEach(e=>e.classList.toggle("on",e.dataset.id===id));
+const rows=z.rows.map(r=>{const a=r[1],c=/^(Ignore|Don)/.test(a)?"i":"l";return `<div class="rr"><div class="t">${r[0]}</div><span class="pill ${c}">${a}</span>${r.slice(2).map(x=>`<span class="pill n">${x}</span>`).join("")}</div>`}).join("");
+$("det").innerHTML=`<h2>Details</h2><h3>${z.n}</h3>
+<div class="blk"><b>إيه هو؟</b><p>${en(z.what)}</p></div>
+<div class="blk"><b>Rule</b><div class="rule">${rows}</div></div>
+${z.same?`<div class="note">${en(z.same)}</div>`:""}${z.note?`<div class="note">${en(PN)}</div>`:""}`}
+$("det").innerHTML='<div class="empty">👈 دوس على أي جزء في الطريق<br>وهتظهر هنا الـ Rule بتاعه</div>';
+document.querySelectorAll("#road [data-id]").forEach(e=>e.addEventListener("click",()=>{show(e.dataset.id);if(innerWidth<820)$("det").scrollIntoView({behavior:"smooth",block:"nearest"})}));
+const Q=[["Particulate Debris (رمل) على الـ Shoulder Lane، فيه 30 points و 40cm.",0,"الـ Particulate بيتعمله Ignore في الـ Shoulder."],
+["Debris على الـ Travel Lanes، فيه 6 points و 12cm.",1,"الـ Travel Lanes محتاجة ≥ 5 points و ≥ 10cm، وده متحقق."],
+["Debris على الـ Shoulder، فيه 8 points و 25cm.",0,"محتاج ≥ 10 points، والـ points هنا أقل."],
+["Debris Pile في الـ Accumulation Area، فيه 25 points و 35cm.",1,"وصل ≥ 20 points و ≥ 30cm، فتعمل Label."],
+["Debris كبير ورا الـ Road Edge، يعني جوّه الـ NLZ.",0,"الـ NLZ مفيهاش Label."],
+["Particulate chain في الـ Accumulation Area وممتدة جوّه الـ Shoulder.",0,"الـ Particulate piles / chains بنعملها Ignore هنا مهما امتدت."]];
+let qi=0,s=0;
+function nq(){$("fb").className="fb";$("fb").textContent="";$("nx").style.display="none";
+if(qi>=Q.length){$("q").textContent=`خلصت! النتيجة: ${s} من ${Q.length}`;$("bl").disabled=$("bi").disabled=true;$("sc").textContent="";$("nx").textContent="ابدأ تاني";$("nx").style.display="inline-block";$("nx").onclick=()=>{qi=0;s=0;$("nx").textContent="التالي ←";nq()};return}
+$("q").innerHTML=en(Q[qi][0]);$("sc").textContent=`${qi+1}/${Q.length}`;$("bl").disabled=$("bi").disabled=false;$("nx").onclick=()=>{qi++;nq()}}
+function ans(v){const ok=v===Q[qi][1];if(ok)s++;$("fb").className="fb "+(ok?"y":"n");$("fb").innerHTML=(ok?"✅ صح. ":"❌ غلط. ")+en(Q[qi][2]);$("bl").disabled=$("bi").disabled=true;$("nx").style.display="inline-block"}
+$("bl").onclick=()=>ans(1);$("bi").onclick=()=>ans(0);nq();
+</script>
+</body>
+</html>
